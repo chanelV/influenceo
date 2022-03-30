@@ -1,0 +1,34 @@
+{
+    "name": "jboukoro/blog-php-mvc",
+    "description": "Gestionnaire de contenu de blog (mini cms)",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Jarce Boukoro",
+            "email": "jarce2frise@yahoo.fr"
+        }
+    ],
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "env.php",
+            "routes.php"
+        ],
+        "classmap": [
+            "./"
+        ]
+    },
+    "config": {
+        "platform": {
+            "php": "7.4"
+        }
+    },
+    "require": {
+        "php": ">=7.4",
+        "ext-pdo": "*",
+        "ext-json": "*",
+        "ext-gd": "*",
+        "ext-iconv": "*",
+        "phpmailer/phpmailer": "^6.5"
+    }
+}
