@@ -1,11 +1,11 @@
 {
-    "name": "jboukoro/blog-php-mvc",
-    "description": "Gestionnaire de contenu de blog (mini cms)",
+    "name": "social-media/influenceo",
+    "description": "rseaux social",
     "type": "project",
     "authors": [
         {
-            "name": "Jarce Boukoro",
-            "email": "jarce2frise@yahoo.fr"
+            "name": "Chanel ENGONDO",
+            "email": "chanelengondo@gmail.com"
         }
     ],
     "license": "MIT",

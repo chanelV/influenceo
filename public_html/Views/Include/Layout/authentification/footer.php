@@ -1,5 +1,18 @@
-   
-   <script src="/public/js/vendor/jquery-3.6.0.min.js" ></script>
-    <script src="/public/scripts/common.js"></script>
-  </body>
+</div><!--Header authentification-->
+
+
+
+<script type="text/javascript" src="public/js/jquery.min.js"></script>
+<script type="text/javascript" src="public/js/popper.js"></script>
+<script type="text/javascript" src="public/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="public/scripts/common.js"></script>
+<script type="text/javascript" src="lib/slick/slick.min.js"></script>
+<script type="text/javascript" src="public/js/script.js"></script>
+</body>
 </html>
+
+<?php
+
+unset($_SESSION['message']);
+
+?>

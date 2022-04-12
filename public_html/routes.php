@@ -7,10 +7,14 @@ use App\Router;
  */
 
  //View routes
-Router::get('/', 'HomeController@index');
-Router::get('/home', 'HomeController@index');
-Router::get('/signin', 'AuthentificationController@signin');
-Router::get('/signup', 'AuthentificationController@signup');
+Router::get('/home', 'HomeController@index'); // Page d'accueil 
+Router::get('/', 'AuthentificationController@index'); // formulaire Inscription connexion 
+Router::get('/profile-account-setting', 'AccountController@index'); // page reglage et de modification profil 
+Router::get('/profile', 'ProfilController@index'); // Route de la page  profil 
+Router::get('/profile-list', 'ProfilController@listProfile'); // Route de la page  List de profil soit marques soit influenceurs
+Router::get('/messages', 'MessagesController@index'); // Route de la page de la discussion soit marques soit influenceurs
+
+
 
 //Actions routes
 Router::post('/login', 'AuthentificationController@formLogin');

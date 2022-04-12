@@ -1,25 +1,31 @@
 <?php
 
 namespace App;
+use Models\Users;
+
 
 class UserInfo
 {
     public static function current()
     {
-        if (isset($_SESSION['user_inf'])) {
-            Database::query("SELECT * FROM users WHERE id = :id");
-            Database::bind(':id', base64_decode($_SESSION['user_inf']));
+        $user = Users::getUser(base64_decode($_SESSION['influenceo']['id']));
+        $social_network = Users::social_network($_SESSION['influenceo']['id']);
+        $language = Users::language($_SESSION['influenceo']['id']);
+        $categories = Users::categories($_SESSION['influenceo']['id']);
 
-            return Database::fetch();
+       // var_dump($user);
+      //  die();
+      
+        if (isset($_SESSION['influenceo'])) {
+           return [
+               'info' => $user,
+               'social_network' => $social_network,
+               'language' => $language,
+               'categories' => $categories
+           ];
+           
+           
         }
         return null;
-    }
-
-    public static function info($id)
-    {
-        Database::query("SELECT * FROM users WHERE id = :id");
-        Database::bind(':id', $id);
-
-        return Database::fetch();
     }
 }

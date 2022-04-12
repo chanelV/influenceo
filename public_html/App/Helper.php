@@ -19,6 +19,12 @@ class Helper
         else die('404 Page not found');
     }
 
+	public static function redirect($url, $statusCode = 303)
+	{
+		header('Location: ' . $url, true, $statusCode);
+		die();
+	}
+
     public static function echappe($string)
 	{
 		return str_replace("'","''",$string);

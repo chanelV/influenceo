@@ -7,8 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInit0bc30bd1a52e8cf5736cce22bcead984
 {
     public static $files = array (
-        '693dba326b8a9bc93c72d145b18c9d8d' => __DIR__ . '/../..' . '/env.php',
-        'ae833998af8b0d0df18e06f39700931c' => __DIR__ . '/../..' . '/routes.php',
+        '02f0af373ee1baec7e17921b39aab854' => __DIR__ . '/../..' . '/env.php',
+        '3b4811c0cdb306a93d0f795ddd9dcac1' => __DIR__ . '/../..' . '/routes.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -36,8 +36,11 @@ class ComposerStaticInit0bc30bd1a52e8cf5736cce22bcead984
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInit0bc30bd1a52e8cf5736cce22bcead984' => __DIR__ . '/..' . '/composer/autoload_static.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Controllers\\AccountController' => __DIR__ . '/../..' . '/Controllers/AccountController.php',
         'Controllers\\AuthentificationController' => __DIR__ . '/../..' . '/Controllers/AuthentificationController.php',
         'Controllers\\HomeController' => __DIR__ . '/../..' . '/Controllers/HomeController.php',
+        'Controllers\\MessagesController' => __DIR__ . '/../..' . '/Controllers/MessagesController.php',
+        'Controllers\\ProfilController' => __DIR__ . '/../..' . '/Controllers/ProfilController.php',
         'Models\\Auth' => __DIR__ . '/../..' . '/Models/Auth.php',
         'Models\\Common' => __DIR__ . '/../..' . '/Models/Common.php',
         'Models\\Users' => __DIR__ . '/../..' . '/Models/Users.php',

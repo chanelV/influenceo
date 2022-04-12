@@ -4,72 +4,136 @@ namespace Models;
 
 use App\Database;
 use App\Helper;
-use App\UserInfo;
-
 
 class Users
 {
-    public static function index()
+    public static function getUsers()
     {
-        Database::query("SELECT * FROM users ORDER BY lastName ASC");
+        Database::query("SELECT * FROM users  ORDER BY lastname, reason_social ASC");
         return Database::fetchAll();
     }
 
+
+    public static function getUser($id)
+    {
+        Database::query("SELECT * FROM users WHERE id = :id");
+        Database::bind(':id', intval($id));
+
+        return Database::fetch();
+    }
+
+    public static function social_network($id)
+    {
+        Database::query("SELECT * FROM user_social_network us  
+            INNER JOIN social_network s ON s.id = us.id_social
+            WHERE us.id_user = :id_user");
+        Database::bind(':id_user', intval($id));
+        return Database::fetchAll();
+    }
+
+    public static function language($id)
+    {
+        Database::query("SELECT * FROM user_lang WHERE id_user = :id_user");
+        Database::bind(':id_user', intval($id));
+        return Database::fetchAll();
+    }
+
+    public static function categories($id)
+    {
+        Database::query("SELECT * FROM user_categories uc  
+            INNER JOIN categories c ON c.id = uc.id_cat
+            WHERE uc.id_user = :id_user");
+        Database::bind(':id_user', intval($id));
+        return Database::fetchAll();
+    }
+
+
     public static function update($request)
     {
+        if($request->email){
+            Database::query("SELECT * FROM users WHERE email = :email AND id != :id");
+            Database::bind([':email' => $request->email, ':id'=> intval($request->id)]);
+            if (!is_null(Database::fetch()) && !is_null(Database::fetch()['id'])) {
+                return "email_existed";
+            }
+        }
+
+        if($request->username){
+            Database::query("SELECT * FROM users WHERE username = :username AND id != :id");
+            Database::bind([':username' => $request->username, ':id'=>intval($request->id)]);
+            if (!is_null(Database::fetch()) && !is_null(Database::fetch()['id'])) {
+                return "username_existed";
+            }
+        }
+
+        if($request->reason_social){
+            Database::query("SELECT * FROM users WHERE reason_social = :reason_social AND id != :id");
+            Database::bind([':reason_social' => $request->reason_social, ':id'=>intval($request->id)]);
+            if (!is_null(Database::fetch()) && !is_null(Database::fetch()['id'])) {
+                return "reason_social_existed";
+            }
+        }
+
+
+        //$picture = "/public/files/pictures".(base64_decode($_SESSION['account_type']) ? "/users/default_user.png" : "/users/default_brand.png" );
+        //$dir = "/public/files/pictures/".(base64_decode($_SESSION['account_type']) ? "users/" : "brand/" );
+
+        $data = [
+            "username" => $request->username,
+            "email" => $request->email,
+            "firstname" => $request->firstname?$request->firstname:null,
+            "lastname" => $request->lastname?$request->lastname:null,
+            "genre" => $request->genre?$request->genre:null,
+            "reason_social" => $request->reason_social?$request->reason_social:null,
+            "address" => $request->address?$request->address:null,
+            "code_postal" => $request->code_postal?$request->code_postal:null,
+            "city" => $request->city?$request->city:null,
+            "country" => $request->country?$request->country:null
+        ];
+
         Database::query("UPDATE users SET 
-            userName = :userName, 
-            firstName = :firstName, 
-            lastName=:lastName, 
-            description =: description,
-            avatar=:avatar  
-            WHERE id = :id"
-        );
+            username = :username, email = :email, firstname = :firstname, lastname = :lastname, genre = :genre, 
+            reason_social = :reason_social, address = :address, code_postal = :code_postal, 
+            city = :city, country = :country, update_date = NOW() WHERE id = :id");
         Database::bind([
-            ':userName' => $request->userName,
-            ':firstName' => $request->firstName,
-            ':lastName' => $request->lastName,
-            ':description' => $request->description,
-            ':avatar' => $request->avatar,
-            ':id' => intval($request->id),
+            ':username' => $data['username'],
+            ':email' => $data['email'],
+            ':firstname' => $data['firstname'],
+            ':lastname' => $data['lastname'], 
+            ':genre' => $data['genre'],
+            ':reason_social' => $data['reason_social'],
+            ':address' => $data['address'],
+            ':code_postal' => $data['code_postal'],
+            ':city' => $data['city'],
+            ':country' => $data['country'],
+            ':id' => intval($request->id)
         ]);
 
-        if (Database::execute()) return true;
-        return false;
+        if (Database::execute()) return "updated";
+        return "failed";
     }
 
     public static function updatePassword($request)
     {
-        Database::query("UPDATE users SET 
-            password = :password  
-            WHERE id = :id"
-        );
-        Database::bind([
-            ':password' => password_hash($request->password, PASSWORD_DEFAULT),
-            ':id' => intval($request->id),
-        ]);
+        Database::query("SELECT * FROM users WHERE id = :id");
+        Database::bind(':id', $request->id);
+        if (!is_null(Database::fetch()) && Database::fetch()['password'] == password_hash($request->old_password, PASSWORD_DEFAULT)) {
+            Database::query("UPDATE users SET 
+                password = :password  
+                WHERE id = :id"
+            );
+            Database::bind([
+                ':password' => password_hash($request->password, PASSWORD_DEFAULT),
+                ':id' => intval($request->id),
+            ]);
 
-        if (Database::execute()) return true;
-        return false;
+            if (Database::execute()) return "changed";
+            return "failed"; 
+        } else {
+            return "incorrect";
+        }
+
+        
     }
 
-    public static function existed_update($user, $id)
-    {
-        $username=$user;
-        $email=$user;
-        Database::query("SELECT * FROM users WHERE (email = :email OR userName = :username) AND id != :id");
-        Database::bind([':email'=> $email,':username'=> $username, ':id'=>$id]);
-
-        if (!is_null(Database::fetch()) && !is_null(Database::fetch()['id'])) return true;
-        return false;
-    }
-
-    public static function delete($id)
-    {
-        Database::query("DELETE FROM users WHERE id = :id");
-        Database::bind(':id', intval($request->id));
-
-        if (Database::execute()) return true;
-        return false;
-    }
 }

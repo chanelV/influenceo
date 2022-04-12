@@ -1,9 +1,9 @@
 $(".form-button").click(function(){
-	
-    const $require = $(".require");
 	const rel = $(this).attr("rel");
-    const $form = $('#common-form-'+rel);
+	const $form = $('#common-form-'+rel);
+	const $require = $('#common-form-'+rel+' .require');
 	const $message = $(".message-"+rel);
+	const root = $form.attr("action").toLowerCase();
 
     var nbError = 0;
     $require.each(function(){
@@ -22,7 +22,7 @@ $(".form-button").click(function(){
 
         $.ajax({
 			type: $form.attr("method").toUpperCase(),
-			url:apiAddress + $form.attr("action").toLowerCase(),
+			url: apiAddress + root,
 			data: formData,
             dataType: "JSON",
 			contentType:false,
@@ -34,13 +34,18 @@ $(".form-button").click(function(){
 			
 		})
 		.done(function(result){
-            if (result.status === "OK") {
-				if($form.attr("action").toLowerCase() == "/login"){
-					window.location.replace("/dashboard");
+			const resetRoute = [roots.register, roots.login];
+            if (result.status === 200) {
+				if(resetRoute.includes(root)){
+					$form[0].reset();
 				}
-            } else {
-                $message.addClass("alert alert-danger").html(result.message);
+
+				if(root == roots.login){
+					window.location.replace(roots.home);
+				}
             }
+			$message.addClass(result.class).html(result.message);
+
         });
     }
 	else{
