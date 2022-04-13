@@ -4,6 +4,8 @@
 
 <?php   
     require_once APP_ROOT . '/Views/Include/Layout/header.php';
+	require_once APP_ROOT . '/Views/Pages/Common_components/newUser.php';
+
     //page  Liste des profils des marques et influenceurs  
 ?>
 

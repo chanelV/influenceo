@@ -21,7 +21,8 @@ class Auth
 
         if (!is_null(Database::fetch()) && password_verify($request->password, Database::fetch()['password'])) {
             $_SESSION['influenceo']['id'] = base64_encode(Database::fetch()['id']);
-            $_SESSION['influenceo']['account'] = Database::fetch()['account_type'];
+            $_SESSION['influenceo']['account'] = Database::fetch()['user_type'];
+            $_SESSION["active_account"] = true;
             return true;
         }
         return false;
@@ -103,6 +104,7 @@ class Auth
     {
         session_destroy();
         unset($_SESSION['influenceo']);
+        unset($_SESSION['active_account']);
         return true;
     }
 }

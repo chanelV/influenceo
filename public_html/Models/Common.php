@@ -13,6 +13,12 @@ class Common
         return Database::fetchAll();
     }
 
+    public static function languages()
+    {
+        Database::query("SELECT * FROM languages ORDER BY name ASC");
+        return Database::fetchAll();
+    }
+
     public static function social_network()
     {
         Database::query("SELECT * FROM social_network ORDER BY name ASC");

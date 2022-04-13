@@ -1866,6 +1866,17 @@ main {
 	height: 40px;
 	padding: 0 10px;
 }
+
+.post-project-fields form input[type=checkbox],
+input[type=checkbox],
+.post-project-fields form input[type=radio],
+input[type=radio] {
+	width: initial !important;
+	height: initial !important;
+	padding: initial !important;
+}
+
+
 .post-project-fields form ul {
 	float: left;
 	margin-top: 10px;

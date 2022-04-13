@@ -25,11 +25,3 @@
     </div>
 </div>
 </form>
-
-<div class="login-resources">
-<h4>Connexion via un compte social</h4>
-<ul>
-    <li><a href="#" title="" class="fb"><i class="fa fa-facebook"></i>Connexion via Facebook</a></li>
-    <li><a href="#" title="" class="tw"><i class="fa fa-twitter"></i>Connexion via Twitter</a></li>
-</ul>
-</div><!--cenexion via secial media end-->

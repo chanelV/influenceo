@@ -1,7 +1,8 @@
 <?php
-if(isset($_SESSION['influenceo'])){
-    header("location:/home");
-}
+    use App\Helper;
+    if(isset($_SESSION['influenceo'])){
+        Helper::redirect("/home");
+    }
 ?>
 <!--Header authentification-->
 <!DOCTYPE html>
@@ -12,15 +13,15 @@ if(isset($_SESSION['influenceo'])){
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<link rel="stylesheet" type="text/css" href="public/css/animate.css">
-<link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="public/css/line-awesome.css">
-<link rel="stylesheet" type="text/css" href="public/css/line-awesome-font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="public/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="public/lib/slick/slick.css">
-<link rel="stylesheet" type="text/css" href="public/lib/slick/slick-theme.css">
-<link rel="stylesheet" type="text/css" href="public/css/style.css">
-<link rel="stylesheet" type="text/css" href="public/css/responsive.css">
+<link rel="stylesheet" type="text/css" href="/public/css/animate.css">
+<link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/public/css/line-awesome.css">
+<link rel="stylesheet" type="text/css" href="/public/css/line-awesome-font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/public/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/public/lib/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="/public/lib/slick/slick-theme.css">
+<link rel="stylesheet" type="text/css" href="/public/css/style.css">
+<link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
 
 <script>
