@@ -12,15 +12,28 @@ use App\Middleware;
 class PostController
 {
 
-    public function index()
+    public function index(int $slug)
     {
-        $type = $_SESSION['influenceo']['account'];
+        
+        $post = Posts::getPost($slug);
+        $categories = Posts::categories($post["id"]);
+        $likes = Posts::likes($post["id"]);
+        $comments = Posts::comments($post["id"]);
+        $usersId = [];
+        for ($i=0; $i < count($likes); $i++) { 
+            $usersId[] = $likes[$i]["id_user"];
+        }
 
         Helper::render(
-            'Pages/Profile/profile', // page de Profil
+            'Pages/Post/post', // page de Profil
             [
-                'page_title' => "Page Profil",
-                'page_subtitle' => "Bienvenu sur la page Profil"
+                'page_title' => "Page mission",
+                'page_subtitle' => "Bienvenu sur la page mission",
+                'post' => $post,
+                'categories' => $categories,
+                'likes' => $likes,
+                'comments' => $comments,
+                'usersId' => $usersId
             ]
         );
     }
@@ -83,6 +96,69 @@ class PostController
             $_SESSION['response']["status"] = 200;
             $_SESSION['response']["class"] = "alert alert-success";
             $_SESSION['response']["message"] = $success[$likeAction];
+        }
+        else {
+            $_SESSION['response']["status"] = 500;
+            $_SESSION['response']["class"] = "alert alert-warning";
+            $_SESSION['response']["message"] = 'Echec de la requête';
+        }
+        echo json_encode($_SESSION['response']);
+    }
+
+    public function comments()
+    {
+        $request = json_decode(json_encode($_POST));
+        
+        $create = Posts::addComments($request);
+
+        $error = [
+            "failed" => "Erreur lors de la reqête"
+        ];
+
+        $success = [
+            "created" => 'Commentaire ajouté avec succès'
+        ];   
+        
+        if(array_key_exists($create, $error)){
+            $_SESSION['response']["status"] = 403;
+            $_SESSION['response']["class"] = "alert alert-danger";
+            $_SESSION['response']["message"] = $error[$create];
+        }
+        else if(array_key_exists($create, $success)){
+            $_SESSION['response']["status"] = 200;
+            $_SESSION['response']["class"] = "alert alert-success";
+            $_SESSION['response']["message"] = $success[$create];
+        }
+        else {
+            $_SESSION['response']["status"] = 500;
+            $_SESSION['response']["class"] = "alert alert-warning";
+            $_SESSION['response']["message"] = 'Echec de la requête';
+        }
+        echo json_encode($_SESSION['response']);
+    }
+
+
+    public function deletePost(int $slug)
+    {
+        
+        $del = Posts::delete($slug);
+        $error = [
+            "failed" => "Erreur lors de la reqête"
+        ];
+
+        $success = [
+            "deleted" => 'deleted'
+        ];   
+        
+        if(array_key_exists($del, $error)){
+            $_SESSION['response']["status"] = 403;
+            $_SESSION['response']["class"] = "alert alert-danger";
+            $_SESSION['response']["message"] = $error[$del];
+        }
+        else if(array_key_exists($del, $success)){
+            $_SESSION['response']["status"] = 200;
+            $_SESSION['response']["class"] = "alert alert-success";
+            $_SESSION['response']["message"] = $success[$del];
         }
         else {
             $_SESSION['response']["status"] = 500;

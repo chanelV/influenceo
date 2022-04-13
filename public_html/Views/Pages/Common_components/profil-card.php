@@ -12,6 +12,8 @@ $getlikesUser = Posts::getLikesUser($me['info']['id']);
                     <img src="<?=$me['info']['picture']?>" height="100" width="100" alt="">
                 </div>
             </div><!--username-dt end-->
+
+            <?php if(!$type){ ?>
             <div class="user-specs">
                 
                     <?php
@@ -28,6 +30,7 @@ $getlikesUser = Posts::getLikesUser($me['info']['id']);
                 
                 <span><?=$type?"Influenceur":"Marque"?></span>
             </div>
+            <?php } ?>
         </div><!--user-profile end-->
         <ul class="user-fw-status">
             <li>

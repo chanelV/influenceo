@@ -89,13 +89,27 @@ class Posts
         return "failed";
     }
 
+    public static function addComments($request)
+    {  
+        Database::query("INSERT INTO comments(`content`, `id_user`, `id_mission`, `create_date`) VALUES (:content, :id_user, :id_mission, NOW())");
+        Database::bind([
+            ':content' => $request->content,
+            ':id_user' => intval($request->id_user),
+            ':id_mission' => intval($request->id_mission)
+        ]);
+    
+        if (Database::execute()) return "created";
+        return "failed";
+    }
+
     public static function comments($id)
     {
         Database::query("SELECT co.id, co.content, co.create_date, co.id_user, co.id_mission, 
             u.username, u.firstname, u.lastname, u.email, u.reason_social, u.picture, u.code_postal, u.address, u.city, u.country
             FROM comments co  
             INNER JOIN users u ON u.id = co.id_user
-            WHERE co.id_mission = :id_mission");
+            WHERE co.id_mission = :id_mission
+            ORDER BY co.id ASC");
         Database::bind(':id_mission', intval($id));
         return Database::fetchAll();
     }
@@ -167,13 +181,14 @@ class Posts
 
     public static function delete($id){
         Database::query("DELETE FROM mission_categories WHERE id_mission = :id_mission");
-        Database::bind(':id_mission', intval($request->id));
+        Database::bind(':id_mission', intval($id));
 
         if (Database::execute()){
             Database::query("DELETE FROM missions WHERE id = :id");
             Database::bind(':id', intval($id));
             if (Database::execute()) return "deleted";
         }
+        return "failed";
     }
 
 }

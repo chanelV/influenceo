@@ -44,6 +44,7 @@
         updateLanguages: "/update-languages",
         updatePassword: "/update-password",
         createPost: "/create-post",
+        comments: "/comments",
     };
 </script>
 </head>

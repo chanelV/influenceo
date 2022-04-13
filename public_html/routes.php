@@ -14,6 +14,7 @@ Router::get('/profile', 'ProfilController@index'); // Route de la page  profil
 Router::get('/profile/(:any)', 'ProfilController@see_profile'); // Route de la page  profil 
 Router::get('/profile-list', 'ProfilController@listProfile'); // Route de la page  List de profil soit marques soit influenceurs
 Router::get('/messages', 'MessagesController@index'); // Route de la page de la discussion soit marques soit influenceurs
+Router::get('/post/(:any)', 'PostController@index'); // Page de mission 
 
 
 
@@ -26,7 +27,9 @@ Router::post('/update-socials-networks', 'ProfilController@updateSocialsNetworks
 Router::post('/update-languages', 'ProfilController@updateLanguages');
 Router::post('/update-password', 'ProfilController@updatePassword');
 Router::post('/create-post', 'PostController@createPost');
-Router::get('/like/(:any)', 'PostController@like'); // Route de la page  profil 
+Router::post('/comments', 'PostController@comments');
+Router::get('/like/(:any)', 'PostController@like'); 
+Router::get('/deletePost/(:any)', 'PostController@deletePost');
 Router::get('/logout', 'AuthentificationController@logout');
 
 

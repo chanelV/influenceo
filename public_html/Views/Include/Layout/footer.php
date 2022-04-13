@@ -75,6 +75,7 @@
 <script type="text/javascript" src="/public/js/script.js"></script>
 <script type="text/javascript" src="/public/scripts/common.js"></script>
 <script type="text/javascript" src="/public/scripts/like.js"></script>
+<script type="text/javascript" src="/public/scripts/deletePost.js"></script>
 
 </body>
 </html>
