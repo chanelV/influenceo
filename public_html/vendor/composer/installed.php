@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'd9aba8d75e3c740d23a22eeb86340cc213287ea4',
+        'reference' => '9b3e3ed9c22556d18630a7025fd11696ad661393',
         'name' => 'jboukoro/blog-php-mvc',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'd9aba8d75e3c740d23a22eeb86340cc213287ea4',
+            'reference' => '9b3e3ed9c22556d18630a7025fd11696ad661393',
             'dev_requirement' => false,
         ),
         'phpmailer/phpmailer' => array(

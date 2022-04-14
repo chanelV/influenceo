@@ -4,13 +4,24 @@ namespace Models;
 
 use App\Database;
 use App\Helper;
-use App\UserInfo;
-
 
 class Common
 {
-    public static function index()
+    public static function categories()
     {
-        return [];
+        Database::query("SELECT * FROM categories ORDER BY name ASC");
+        return Database::fetchAll();
+    }
+
+    public static function languages()
+    {
+        Database::query("SELECT * FROM languages ORDER BY name ASC");
+        return Database::fetchAll();
+    }
+
+    public static function social_network()
+    {
+        Database::query("SELECT * FROM social_network ORDER BY name ASC");
+        return Database::fetchAll();
     }
 }

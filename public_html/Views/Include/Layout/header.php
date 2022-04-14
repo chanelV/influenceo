@@ -1,37 +1,125 @@
 <?php
-  use App\SiteInfo;
+  use App\UserInfo;
+  use App\Helper;
 
-  if(!isset($_SESSION['user_inf'])){
-      header("location:/signin");
-  }
+  if(!isset($_SESSION['influenceo']) || !$_SESSION['influenceo']){
+	Helper::redirect("/");
+  } 
   $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
   $segment = explode('/', $uri);
   $page = $segment[1];
+
+  $me = UserInfo::current();
+  $type = $_SESSION['influenceo']['account']; // type soit 0 pour la marque et 1 pour influenceur
+  //var_dump($me);
+  //die();
 ?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/public/img/logo/logo.jpg">
+<!--Header -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>WorkWise Html Template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="stylesheet" type="text/css" href="/public/css/animate.css">
+<link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/public/css/line-awesome.css">
+<link rel="stylesheet" type="text/css" href="/public/css/line-awesome-font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/public/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/public/css/jquery.mCustomScrollbar.min.css">
+<link rel="stylesheet" type="text/css" href="/public/lib/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="/public/lib/slick/slick-theme.css">
+<link rel="stylesheet" type="text/css" href="/public/css/style.css">
+<link rel="stylesheet" type="text/css" href="/public/css/responsive.css">
 
-    <title>Dashboard Template for Bootstrap</title>
+<script>
+    const apiAddress = '<?= URL_ROOT; ?>';
+    const roots = {
+        profileAccountSetting: "/profile-account-setting",
+        updateInfo: "/update-info",
+        updateCategories: "/update-categories",
+        updateSocialsNetworks: "/update-socials-networks",
+        updateLanguages: "/update-languages",
+        updatePassword: "/update-password",
+        createPost: "/create-post",
+        comments: "/comments",
+    };
+</script>
+</head>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/public/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/public/css/jquery-ui.min.css">
-    <link rel="stylesheet" href="/public/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+<body>
+	
+	<div class="wrapper">
 
-    <!-- Custom styles for this template -->
-    <link href="/public/css/dashboard.css" rel="stylesheet">
-    <link href="/public/css/editor.css" rel="stylesheet">
-
-  </head>
-
-  <body>
-    <a class="nav-link" href="/logout"><i class="fa fa-power-off"></i> Déconnexion </a>
+		<header>
+			<div class="container">
+				<div class="header-data">
+					<div class="logo">
+						<a href="/home" title=""><img src="/public/images/logo.png" alt=""></a>
+					</div><!--logo end-->
+					<div class="search-bar">
+					</div><!--search-bar end-->
+					<nav>	
+						<ul>
+							<li>
+								<a href="/home" title="">
+									<span><img src="/public/images/icon1.png" alt=""></span>
+									Accueil
+								</a>
+							</li>
+							<li>
+								<a href="/profile-list" title="">
+									<?php if($type){ ?>
+										<span><img src="/public/images/icon2.png" alt=""></span>
+										Marques
+									<?php }else{ ?>
+										<span><img src="/public/images/icon4.png" alt=""></span>
+										Infuenceurs
+									<?php } ?>
+									
+								</a>
+							</li>
+							<li>
+								<a href="/missions" title="">
+									<span><img src="/public/images/icon3.png" alt=""></span>
+									Missions
+								</a>
+							</li>
+							<li>
+								<a href="/messages" title="" class="not-box-open">
+									<span><img src="/public/images/icon6.png" alt=""></span>
+									Messages
+								</a>							
+							</li>
+						</ul>
+					</nav><!--nav end-->
+					<div class="menu-btn">
+						<a href="#" title=""><i class="fa fa-bars"></i></a>
+					</div><!--menu-btn end-->
+					<div class="user-account">
+						<div class="user-info">
+							<img src="<?=$me['info']['picture']?>" width="30" height="30" alt="">
+							<a href="#" title="">
+								<?php 
+									echo $me['info']['username'];
+								?>
+								
+							</a>
+							<i class="la la-sort-down"></i>
+						</div>
+						<div class="user-account-settingss">
+							<h3><?=$me['info']['email']?></h3>
+							<ul class="us-links">
+								<li><a href="/profile-account-setting" title="">Paramètre du compte</a></li>
+								<li><a href="" title=""></a></li>
+							</ul>
+							<h3 class="tc"><a href="/logout" title="">Deconnexion</a></h3>
+						</div><!--user-account-settingss end-->
+					</div>
+				</div><!--header-data end-->
+			</div>
+		</header><!--header end-->
     
